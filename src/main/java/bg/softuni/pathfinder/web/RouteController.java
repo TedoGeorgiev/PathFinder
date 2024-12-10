@@ -9,15 +9,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+/**
+ * Controller to handle all things route related
+ */
+
 @Controller
-public class RoutesController {
+public class RouteController {
 
     private final RouteService routeService;
 
     @Autowired
-    public RoutesController(RouteService routeService) {
+    public RouteController(RouteService routeService) {
         this.routeService = routeService;
     }
+
+    /**
+     * Method to handle the listing of all routes.
+     *
+     * @return the list routes view
+     */
 
     @GetMapping("/routes")
     public String routes(Model model) {
