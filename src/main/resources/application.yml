@@ -15,8 +15,10 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/pathfinder?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
-    username: root
-    password: "!gericom"
+
+#    vm Option to set user and pass and not expose it
+    username: ${db_username}
+    password: ${db_password}
 
   thymeleaf:
     check-template-location: true
@@ -36,10 +38,10 @@ spring:
 
 
 ## IF Data.sql is present will initialize the data file
-
-#  sql:
-#    init:
-#      mode: always
+#  mode should be set to always, if want to read data.sql from resources
+  sql:
+    init:
+      mode: never
 
   jpa:
     # Choose either MySQL 8 or MySQL 5 below
