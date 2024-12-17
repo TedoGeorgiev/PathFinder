@@ -1,8 +1,15 @@
 package bg.softuni.pathfinder.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
+
+@Getter
+@Setter
+@NoArgsConstructor
 
 @Entity
 @Table(name = "categories")
@@ -22,39 +29,4 @@ public class Category {
     @ManyToMany(mappedBy = "categories")
     private Set<Route> routes;
 
-    public Category() {
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public CategoryType getName() {
-        return name;
-    }
-
-    public void setName(CategoryType name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<Route> getRoutes() {
-        return routes;
-    }
-
-    public void setRoutes(Set<Route> routes) {
-        this.routes = routes;
-    }
 }
