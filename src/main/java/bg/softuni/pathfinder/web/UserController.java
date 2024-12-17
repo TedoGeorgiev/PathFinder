@@ -1,39 +1,44 @@
 package bg.softuni.pathfinder.web;
 
+
 import bg.softuni.pathfinder.web.dto.UserRegisterDTO;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/users") // Define the base path for all methods in this controller
 public class UserController {
 
-    @GetMapping("/register")
+
+    @GetMapping("users/register")
     public String viewRegister() {
+
         return "register";
     }
 
-    @PostMapping("/register")
+    @PostMapping("users/register")
     public String doRegister(@Valid UserRegisterDTO data,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            // Returns all data in the form
+            // returns all data in the form
             redirectAttributes.addAttribute("registerData", data);
 
-            // Handle errors
+            // handle errors
             return "register";
         }
 
         return "redirect:/users/login";
     }
 
-    @GetMapping("/login")
+
+    @GetMapping("users/login")
     public String viewLogin() {
         return "login";
     }
+
 }
