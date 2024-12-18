@@ -28,4 +28,10 @@ public class HomeController {
         return mnv;
     }
 
+
+    @GetMapping("/about")
+    public ModelAndView about() {
+        return new ModelAndView("about");
+    }
+
 }
