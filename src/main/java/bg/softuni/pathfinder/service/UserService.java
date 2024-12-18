@@ -8,4 +8,6 @@ public interface UserService {
     void register(UserRegisterDTO userRegisterDTO);
 
     void login(UserLoginDTO loginData);
+
+    void logout();
 }

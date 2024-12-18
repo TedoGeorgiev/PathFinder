@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
@@ -47,6 +48,11 @@ public class UserServiceImpl implements UserService {
         if(passwordEncoder.matches(loginData.getPassword(), user.getPassword()) && !currentUser.isLoggedIn()) {
             currentUser.setUser(user);
         }
-
     }
+
+    @Override
+    public void logout() {
+        currentUser.setUser(null);
+    }
+
 }
