@@ -1,7 +1,7 @@
 <header th:fragment="header">
     <nav class="main-nav">
         <ul>
-            <li th:unless="${@currentUser.isLoggedIn()}">
+            <li>
                 <a th:href="@{/}">Home</a>
             </li>
             <li th:unless="${@currentUser.isLoggedIn()}">
