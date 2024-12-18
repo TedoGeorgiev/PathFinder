@@ -4,6 +4,7 @@ import bg.softuni.pathfinder.data.UserRepository;
 import bg.softuni.pathfinder.model.User;
 import bg.softuni.pathfinder.service.CurrentUser;
 import bg.softuni.pathfinder.service.UserService;
+import bg.softuni.pathfinder.service.dto.UserProfileDTO;
 import bg.softuni.pathfinder.web.dto.UserLoginDTO;
 import bg.softuni.pathfinder.web.dto.UserRegisterDTO;
 import org.modelmapper.ModelMapper;
@@ -53,6 +54,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void logout() {
         currentUser.setUser(null);
+    }
+
+    @Override
+    public UserProfileDTO getProfileData() {
+        return this.modelMapper.map(currentUser.getUser(), UserProfileDTO.class);
     }
 
 }

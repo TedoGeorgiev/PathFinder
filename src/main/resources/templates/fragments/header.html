@@ -2,7 +2,7 @@
     <nav class="main-nav">
         <ul>
             <li th:unless="${@currentUser.isLoggedIn()}">
-                <a href="/">Home</a>
+                <a th:href="@{/}">Home</a>
             </li>
             <li th:unless="${@currentUser.isLoggedIn()}">
                 <a th:href="@{users/login}">Login</a>
@@ -11,13 +11,13 @@
                 <a th:href="@{/users/register}">Register</a>
             </li>
             <li>
-                <a href="/">About</a>
+                <a th:href="@{/about}">About</a>
             </li>
             <li th:if="${@currentUser.isLoggedIn()}">
-                <a href="/">Add new route</a>
+                <a th:href="@{/add-route}">Add new route</a>
             </li>
             <li th:if="${@currentUser.isLoggedIn()}">
-                <a href="/">Profile</a>
+                <a th:href="@{/users/profile}">Profile</a>
             </li>
             <li th:if="${@currentUser.isLoggedIn() && @currentUser.isAdmin()}">
                 <a href="/">Admin</a>
