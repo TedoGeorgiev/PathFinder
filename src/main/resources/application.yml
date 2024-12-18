@@ -22,6 +22,9 @@ spring:
     check-template-location: true
     cache: false
     prefix: file:./src/main/resources/templates/
+    resources:
+      static-locations: file:./src/main/resources/static
+      cache-perido: 0
 
   servlet:
     multipart:

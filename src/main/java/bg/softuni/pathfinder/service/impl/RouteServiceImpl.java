@@ -1,9 +1,10 @@
-package bg.softuni.pathfinder.service;
+package bg.softuni.pathfinder.service.impl;
 
 import bg.softuni.pathfinder.data.PictureRepository;
 import bg.softuni.pathfinder.model.Picture;
 import bg.softuni.pathfinder.model.Route;
 import bg.softuni.pathfinder.data.RouteRepository;
+import bg.softuni.pathfinder.service.RouteService;
 import bg.softuni.pathfinder.service.dto.RouteShortInfoDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
@@ -20,16 +20,12 @@ import java.util.stream.Collectors;
 public class RouteServiceImpl implements RouteService {
 
     private final RouteRepository routeRepository;
-    private final PictureRepository pictureRepository;
     private final ModelMapper modelMapper;
-    private Random random;
 
     @Autowired
     public RouteServiceImpl(RouteRepository routeRepository, PictureRepository pictureRepository, ModelMapper modelMapper) {
         this.routeRepository = routeRepository;
-        this.pictureRepository = pictureRepository;
         this.modelMapper = modelMapper;
-        this.random = new Random();
     }
 
     @Override
@@ -60,11 +56,8 @@ public class RouteServiceImpl implements RouteService {
     private RouteShortInfoDTO mapToShortInfo(Route route) {
 
         RouteShortInfoDTO dto = modelMapper.map(route, RouteShortInfoDTO.class);
-
-        Random random = new Random();
-        Long randomPicture = random.nextLong(1, route.getPictures().size() + 1);
-        Optional<Picture> picture = pictureRepository.findById(randomPicture);
-        dto.setImageUrl(picture.get().getUrl());
+        Picture picture = route.getPictures().stream().findFirst().get();
+        dto.setImageUrl(picture.getUrl());
 
         return dto;
 

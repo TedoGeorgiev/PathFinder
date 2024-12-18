@@ -31,6 +31,8 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.4.0'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.36'
+    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto
+    implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '6.4.2'
 
 }
 
