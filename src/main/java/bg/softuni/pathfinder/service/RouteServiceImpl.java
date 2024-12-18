@@ -1,5 +1,6 @@
 package bg.softuni.pathfinder.service;
 
+import bg.softuni.pathfinder.data.PictureRepository;
 import bg.softuni.pathfinder.model.Picture;
 import bg.softuni.pathfinder.model.Route;
 import bg.softuni.pathfinder.data.RouteRepository;
@@ -19,12 +20,14 @@ import java.util.stream.Collectors;
 public class RouteServiceImpl implements RouteService {
 
     private final RouteRepository routeRepository;
+    private final PictureRepository pictureRepository;
     private final ModelMapper modelMapper;
     private Random random;
 
     @Autowired
-    public RouteServiceImpl(RouteRepository routeRepository, ModelMapper modelMapper) {
+    public RouteServiceImpl(RouteRepository routeRepository, PictureRepository pictureRepository, ModelMapper modelMapper) {
         this.routeRepository = routeRepository;
+        this.pictureRepository = pictureRepository;
         this.modelMapper = modelMapper;
         this.random = new Random();
     }
@@ -57,8 +60,11 @@ public class RouteServiceImpl implements RouteService {
     private RouteShortInfoDTO mapToShortInfo(Route route) {
 
         RouteShortInfoDTO dto = modelMapper.map(route, RouteShortInfoDTO.class);
-        Optional<Picture> imageUrl = route.getPictures().stream().findFirst();
-        dto.setImageUrl(imageUrl.get().getUrl());
+
+        Random random = new Random();
+        Long randomPicture = random.nextLong(1, route.getPictures().size() + 1);
+        Optional<Picture> picture = pictureRepository.findById(randomPicture);
+        dto.setImageUrl(picture.get().getUrl());
 
         return dto;
 

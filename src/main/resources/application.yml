@@ -15,8 +15,8 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/pathfinder?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
-    username: root
-    password: "!gericom"
+    username: ${db_username}
+    password: ${db_password}
 
   thymeleaf:
     check-template-location: true
