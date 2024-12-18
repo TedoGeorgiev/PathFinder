@@ -2,7 +2,9 @@ package bg.softuni.pathfinder.service.impl;
 
 import bg.softuni.pathfinder.data.UserRepository;
 import bg.softuni.pathfinder.model.User;
+import bg.softuni.pathfinder.service.CurrentUser;
 import bg.softuni.pathfinder.service.UserService;
+import bg.softuni.pathfinder.web.dto.UserLoginDTO;
 import bg.softuni.pathfinder.web.dto.UserRegisterDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +17,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
+    private final CurrentUser currentUser;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, CurrentUser currentUser) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
+        this.currentUser = currentUser;
     }
 
     @Override
@@ -30,5 +34,19 @@ public class UserServiceImpl implements UserService {
 
 
         this.userRepository.save(user);
+    }
+
+    @Override
+    public void login(UserLoginDTO loginData) {
+        User user = userRepository.findByUsername(loginData.getUsername()).orElse(null);
+
+        if (user == null) {
+            throw new RuntimeException("Invalid username or password");
+        }
+
+        if(passwordEncoder.matches(loginData.getPassword(), user.getPassword()) && !currentUser.isLoggedIn()) {
+            currentUser.setUser(user);
+        }
+
     }
 }
